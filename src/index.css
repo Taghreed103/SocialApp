@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Amatic+SC:wght@400;700&family=Cairo:wght@200..1000&family=Dancing+Script:wght@400..700&family=Pacifico&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-purple:  #6941c6;
+  --breakpoint-2xl: 1400px;
+}
+
+@layer utilities {
+  .container {
+    margin-inline: auto;
+  }
+
+
+}
+
+.btn{
+  @apply rounded-xl   bg-purple-800  py-2  px-4  text-white 
+}
+
+.row{
+  @apply  flex  flex-wrap
+}
+
+
+@layer components {
+
+
+   .shadow-top{
+    box-shadow: 2px  2px 2px 3px rgba(0,0,0,0.08); 
+  }
+
+
+
+  .font-script {
+    font-family: 'Dancing Script', cursive;
+    font-style: italic;
+  }
+}
+
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+  }
+
+  h5 {
+    font-size: 0.8rem;
+  }
+
+  h6 {
+    font-size: 0.5rem;
+  }
+  li {
+    font-size: 15px
+  }
+}
