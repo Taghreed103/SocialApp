@@ -6,7 +6,7 @@ import Login from './Components/Login';
 import Home from './Components/Home';
 import NotFound from './Components/NotFound' ;
 import { useState } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import {  createHashRouter, RouterProvider } from 'react-router-dom'
 
 function App() {
  
@@ -21,7 +21,7 @@ function toggle() {
 
 
 
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
       path: "/",
       element: <Layout    toggle={toggle}   theme={theme}/>,
