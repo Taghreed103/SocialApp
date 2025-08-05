@@ -7,7 +7,7 @@ import Home from './Components/Home';
 import NotFound from './Components/NotFound' ;
 import { useState } from 'react';
 import {  createHashRouter, RouterProvider } from 'react-router-dom'
-
+import ProtectedRoute from './Components/ProtectedRoute';
 function App() {
  
 
@@ -27,7 +27,7 @@ function toggle() {
       element: <Layout    toggle={toggle}   theme={theme}/>,
       children: [
          { path:"/login", element: <Login /> } ,
-        { path: "/home", element: <Home /> },
+        { path: "/home", element:      <ProtectedRoute ><Home></Home></ProtectedRoute> },
         { path: "/register", element: <Register /> },
        { path:  "*" , element: <NotFound/> }
 
@@ -37,11 +37,9 @@ function toggle() {
 
   return (
     <>
-<div className={theme === "dark" ? "dark" : ""}>
 
           <RouterProvider          router={routes}></RouterProvider>
-    
-    </div>
+  
     </>
   )
 }
