@@ -83,10 +83,10 @@ function  logout(){
       after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5
        after:transition-all dark:border-gray-600 peer-checked:bg-pink-600 dark:peer-checked:bg-pink-600"></div>
   <span className="text-sm font-medium text-gray-900 ms-3 dark:text-gray-300">
+  {theme==="dark" ?    <li   className="text-purple-400 fa-solid fa-sun"    > </li> :   <li   className="text-purple-400 fa-solid fa-moon"></li>}
 
-   <li   className="text-purple-400 fa-solid fa-sun"    > </li>
    
-   <li   className="text-purple-400 fa-solid fa-moon"></li>
+ 
   
  
 
