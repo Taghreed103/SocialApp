@@ -10,7 +10,7 @@ export  async function getPosts(){
   if (!token) {
     throw new Error("Token not found");
   }
-    const  response = await axios.get("https://linked-posts.routemisr.com/posts",
+    const  response = await axios.get("https://linked-posts.routemisr.com/posts?sort=-createdAt",
       {headers: {
            token
 }}
