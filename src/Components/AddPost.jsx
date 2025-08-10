@@ -63,7 +63,7 @@ console.log(formData)
     setBody("");
     setImage("");
     setImageSrc("");
-    toast.dismiss();
+    toast.dismiss();// Clear any existing toasts
   }
 
 
@@ -90,7 +90,6 @@ console.log(formData)
       <svg className="mr-2 text-purple-600 cursor-pointer hover:text-gray-700 border border-black   rounded-full p-1 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
       <svg className="mr-2 text-purple-600 cursor-pointer hover:text-gray-700 border  border-black  rounded-full p-1 h-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
      </label>
-      <div className="count ml-auto text-gray-400 text-xs font-semibold">0/300</div>
     </div>
     {/* buttons */}
     <div className="buttons flex">
