@@ -8,6 +8,8 @@ import NotFound from './Components/NotFound' ;
 import { useState } from 'react';
 import {  createHashRouter, RouterProvider } from 'react-router-dom'
 import ProtectedRoute from './Components/ProtectedRoute';
+import PostDetails from './Components/PostDetails';
+import Profile from './Components/Profile';
 function App() {
  
 
@@ -28,6 +30,9 @@ function toggle() {
       children: [
          { path:"/login", element: <Login /> } ,
         { path: "/home", element:      <ProtectedRoute ><Home></Home></ProtectedRoute> },
+        { path: "/posts/:id", element:  <ProtectedRoute ><PostDetails></PostDetails></ProtectedRoute> },
+        { path: "/profile/:id", element:  <ProtectedRoute ><Profile></Profile></ProtectedRoute> },
+
         { path: "/register", element: <Register /> },
        { path:  "*" , element: <NotFound/> }
 

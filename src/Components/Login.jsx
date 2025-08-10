@@ -14,6 +14,7 @@ import { loginFun } from "../Apis/Login.api";
 import {LoginScheme} from '../Components/lib/Login.scheme'
 import Feedback from "./Feedback";
 import { auth } from "../Context/Auth.context";
+import Loading from "./Loading";
 export default function Register() {
  
  const {setIslogin}= useContext(auth);
@@ -135,7 +136,7 @@ mode:"onChange"
 
           <button className="btn">
 
-   {load?<i   className="fa-solid fa-spin fa-spinner text-danger">  </i>:"Login"}
+   {load?<Loading></Loading>:"Login"}
 
             
           </button>

@@ -5,9 +5,8 @@ import { mode } from "../Context/Theme.context";
 export default function Navbar() {
 
 
-const{ islogin,setIslogin} = useContext(auth)
+const{ islogin,setIslogin , userData} = useContext(auth)
   
-
 const{toggle,theme} =useContext(mode)
 
  const navigate = useNavigate    
@@ -36,7 +35,7 @@ function  logout(){
         </svg>
     </button>
        <div className="items-center justify-between hidden w-full md:flex md:w-auto "  id="navbar-default">
-             <ul className="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+             <ul className="flex flex-col items-center p-4 mt-4 font-medium border border-gray-10 md:p-0 bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
 
 
              {
@@ -50,7 +49,15 @@ function  logout(){
               <li >
                       <Link    to={'/logout'}  className="text-purple-600"   onClick={logout}>Logout</Link>
                </li>
+              <Link  to={`/profile/${userData?._id}`}    className="flex items-center gap-4" >
+      
+                <span  className="p-5 ">{userData?.name}</span>
              
+                <img src={userData?.photo} alt="profile" className="w-10 h-10 rounded-full" />
+                
+         
+               
+              </Link>
              </> 
              :
              <>
