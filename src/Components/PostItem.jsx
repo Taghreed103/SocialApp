@@ -1,24 +1,51 @@
 import Comments from "../Components/Comments.jsx";
 import { formatDate } from './lib/formateddate';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import  { useLocation } from 'react-router-dom';
 import CreateComment from "./CreateComment.jsx";
+import { auth } from '../Context/Auth.context.jsx';
+import { useMutation } from "@tanstack/react-query";
+import { DeletePost } from "../Apis/Posts/deletePost.api.js";
+import { toast } from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 export default function PostItem({post}) {
+ 
 
-  const {body, image  , _id ,user:{name, photo} , createdAt}=    post ; 
+  const queryClient = useQueryClient()
+
+
+  const{userData}= useContext(auth);
+  const {body, image  , _id ,user:{name, photo, _id :userId} , createdAt}=    post ; 
   const location = useLocation();
   const isInPostsPage = location.pathname.startsWith("/posts");
 
-  
-   const  [isOpen , setIsOpen]= useState(isInPostsPage);
+
+  const  [isOpen , setIsOpen]= useState(isInPostsPage);
+
+  const  { mutate} = useMutation({mutationFn:DeletePost ,
+
+        onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      toast.success("Post is deleted"); // نقل الـ toast هنا
+    },
+    onError: () => {
+      toast.error("Failed to delete post"); // اختياري: إضافة رسالة خطأ
+    }
+
+
+  })
+
 
 
   
   return (
    <>
       <div className="max-w-2xl mx-auto my-4 mb-4 bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-    <div  className='flex items-center py-3'  >
+        <div className="flex items-center  justify-between">
+
+            <div  className='flex items-center py-3'  >
+    
           <img  className='size-20'   src={photo}  alt='img of subscriber'/>
     
 <div>
@@ -27,8 +54,15 @@ export default function PostItem({post}) {
 
 </div>
      </div>
+     {userId==userData?._id &&
+     <i  onClick={()=>mutate(_id)}          className="fa-solid  fa-close  fa-2x  mx-3  text-purple-600  cursor-pointer"></i>
+
+       }
+        </div>
  
  {image && (
+    
+
   <Link to={`/posts/${_id}`}>
     
     <img className="object-cover w-full"  src={image} alt="post" />

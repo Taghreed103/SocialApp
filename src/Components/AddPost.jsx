@@ -15,17 +15,19 @@ export default function AddPost() {
   const [image,setImage]= useState("");
   const [imgSrc,setImageSrc]= useState("");
 
-  const {isPending, error ,isError, mutate , isSuccess  }  =  useMutation({
+  const { mutate  }  =  useMutation({
     mutationFn:createPost,  
-     onSuccess: ()=>queryClient.invalidateQueries({ queryKey: ["posts"] })
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      toast.success("Post is Added"); // نقل الـ toast هنا
+    },
+    onError: () => {
+      toast.error("Failed to Add post"); // اختياري: إضافة رسالة خطأ
+    }
 
   });
 
  
-
-  if(isError){
-      return <div className='text-red-500 text-center'>Error: {error.message}</div>
-  }
 
 
   function    handleChange(e){
@@ -72,9 +74,7 @@ console.log(formData)
 
  <>
 <form  onSubmit={handleAddPost}     className="add-post-form">
-    {isPending &&  toast.loading('Adding post...' , { duration: 1500 }, { icon: <Loading /> }) }
 
-    {isSuccess && toast.success('Post added successfully!'  , {duration:3000} , {}  )}
   <div className="heading text-center font-bold text-2xl m-5 text-gray-800">New Post</div>
   <style dangerouslySetInnerHTML={{__html: "\n  body {background:white !important;}\n" }} />
   <div className="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
