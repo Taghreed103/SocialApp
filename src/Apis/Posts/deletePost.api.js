@@ -3,7 +3,7 @@ import axios from "axios";
 export  async function DeletePost(userId){
  const token = localStorage.getItem("token");
 
-  if (!token) {
+  if (!token) {  
     throw new Error("Token not found");
   }
     const  response = await axios.delete(`https://linked-posts.routemisr.com/posts/${userId}`, 
