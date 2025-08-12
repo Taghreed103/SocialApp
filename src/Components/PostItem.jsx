@@ -12,7 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 export default function PostItem({post}) {
  
 
-  const queryClient = useQueryClient()
+  const queryClient   = useQueryClient()
 
 
   const{userData}= useContext(auth);
