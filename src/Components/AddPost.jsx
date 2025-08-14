@@ -2,10 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react'
 import { createPost } from '../Apis/Posts/createPost.api';
 import { useQueryClient } from '@tanstack/react-query';
-import Loading from './Loading';
 import toast from 'react-hot-toast';
 
-export default function AddPost() {
+export default function AddPost({profileId , userData}) {
   
  const queryClient = useQueryClient()
 
@@ -16,11 +15,43 @@ export default function AddPost() {
   const [imgSrc,setImageSrc]= useState("");
 
   const { mutate  }  =  useMutation({
-    mutationFn:createPost,  
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
-      toast.success("Post is Added"); // نقل الـ toast هنا
+    mutationFn:createPost, 
+    
+    
+     onSuccess: (newPost) => {
+     
+
+      // تحديث كاش الهوم
+      queryClient.setQueryData(['posts'], (oldData) => {
+        if (!oldData) return oldData;
+        return {
+          ...oldData,
+          posts: [newPost, ...(oldData.posts || [])],
+        };
+      });
+
+      // تحديث كاش البروفايل فقط لو profileId موجود
+      if (profileId && userData?._id === profileId) {
+        queryClient.setQueryData(['profile', profileId], (oldData) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            posts: [newPost, ...(oldData.posts || [])],
+          };
+        });
+      }
+
+      // إعادة جلب بيانات الهوم فقط، مش البروفايل
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+
+      toast.success("Post is Added");
+      clr();
     },
+
+
+
+
+
     onError: () => {
       toast.error("Failed to Add post"); // اختياري: إضافة رسالة خطأ
     }
@@ -81,7 +112,13 @@ console.log(formData)
     
   {imgSrc&&   <img  src={imgSrc}  alt=''></img>     } 
     <input  onChange={handleChange}  id='file'     className="hidden  title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none" spellCheck="false" placeholder="Title" type="file" />
-    <textarea   onChange={(e)=>setBody(e.target.value) }className="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellCheck="false" placeholder="Describe everything about this post here" />
+    <textarea 
+    
+    onChange={(e)=>setBody(e.target.value) }
+    
+    value={body}
+
+    className="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none" spellCheck="false" placeholder="Describe everything about this post here" />
     {/* icons */}
     <div className="icons  flex items-center text-gray-500 m-2">
      <label htmlFor='file' className='cursor-pointer  flex items-center'  >
@@ -93,7 +130,9 @@ console.log(formData)
     </div>
     {/* buttons */}
     <div className="buttons flex">
-      <div className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto">Cancel</div>
+      <div 
+      onClick={clr}
+      className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto">Cancel</div>
       <button className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">Post</button>
     </div>
   </div>
@@ -107,5 +146,3 @@ console.log(formData)
   )
 
 }
-
-

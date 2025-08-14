@@ -16,8 +16,21 @@ export default function PostItem({post}) {
 
 
   const{userData}= useContext(auth);
-  const {body, image  , _id ,user:{name, photo, _id :userId} , createdAt}=    post ; 
-  const location = useLocation();
+  
+
+  const  body =  post?.body ;
+ 
+  const  image=  post?.image;
+  const  photo=  post?.user?.photo;
+  const  name=  post?.user?.name;
+  const  _id=  post?._id;
+  const  createdAt=  post?.createdAt;
+  const  userId=  post?.user?._id;
+  // استخدام useLocation للتحقق من المسار الحالي
+
+
+
+   const location = useLocation();
   const isInPostsPage = location.pathname.startsWith("/posts");
 
 
